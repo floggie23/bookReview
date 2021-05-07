@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
+
+</head>
+<body>
+    <header>
+        <h3>Welcome,{{user.name}}</h3>
+        <div>
+            <a href="/">Home</a>
+            <a href="/logout">Log out</a>
+        </div>
+    </header>
+    <div class="d-flex" >
+    <div>
+    <h2>{{book.title}}
+        </h2>
+        {{book.authors.all}}
+        {% for author in book.authors.all %}
+
+        <p>Author {{author.name}}</p>
+        {% endfor %} <br>
+        {% for review in book.reviews.all %}
+        <p>Review by {{review.user.first_name}}</p>
+        <p> {{review.text}}</p>
+        <p> {{review.rate}}</p>
+        {% endfor %}
+    </div>
+    <div>
+        <form action="/books/{{book.id}}/addReview" method="POST">
+            {% csrf_token %}
+            add a review :
+            <textarea name="review" id="review" cols="30" rows="10">
+            </textarea> <br>
+            rate:
+      <select name="rate" id="rate">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+      <button>Submit</button>
+
+        </form>
+    </div>
+</div>
+</body>
+</html>

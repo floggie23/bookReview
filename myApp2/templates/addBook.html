@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
+</head>
+<body>
+<header>
+    <h3>Welcome,{{user.name}}</h3>
+    <div>
+        <a href="/">Home</a>
+        <a href="/logout">Log out</a>
+    </div>
+</header>
+<div >
+    <h3>Add a new book and author</h3>
+    <form action="/books/create" method="POST">
+        {% csrf_token %}
+    Book Title: <input type="text" name="title" id="title"><br>
+    Description: <textarea name="desc" id="desc" cols="30" rows="10"></textarea><br>
+    Author: <br>
+    Choose from list : 
+    <select name="author" id="author">
+        {% for author in authors %}
+        <option value="{{author.id}}">{{author.name}}</option>>
+        {% endfor %}
+      </select><br>
+      Or add and author: <input type="text" name="addauthor" id="addauthor"><br>
+      review: <textarea name="review" id="review" cols="30" rows="10"></textarea><br>
+      rate:
+      <select name="rate" id="rate">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+      <button>Submit</button>
+    </form>
+
+
+</div>
+    
+
+</body>
+</html>
